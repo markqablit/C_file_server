@@ -10,15 +10,15 @@ int str_len(const char* str) {
 }
 
 int str_includ(const char *containing_str, const char *sub_str){
-    if (!containing_str || !sub_str || str_len(sub_str) < str_len(containing_str)) return 0;
-    for(int i = 0; sub_str[i] != '\0'; ++i){
+    if (!containing_str || !sub_str || str_len(sub_str) > str_len(containing_str)) return 0;
+    for(int i = 0; i < str_len(sub_str); ++i){
         if (sub_str[i] != containing_str[i]) return 0;
     }
     return 1;
 }
 
 int str_cmp(const char *str1, const char *str2){
-    if (str_len(str1) != str_len(str2)) return 0;
+    if ( !str1 || !str2 || (str_len(str1) != str_len(str2))) return 0;
     for(int i = 0; str1[i] != '\0'; ++i){
         if (str1[i] != str2[i]) return 0;
     }
@@ -26,6 +26,7 @@ int str_cmp(const char *str1, const char *str2){
 }
 
 char* str_cut(const char* source_str, const int start_index){
+    if (!source_str) return NULL;
     int source_len = str_len(source_str);
     if (source_len <= start_index) return NULL;
     char* new_str = malloc(source_len - start_index + 1);

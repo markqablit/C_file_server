@@ -4,9 +4,18 @@ TARGET = server.exe
 
 $(TARGET): main.o str.o
 	$(CC) $^ -o $@
-main.o: main.c
+
+test.exe: str.o test.o
+	$(CC) $^ -o $@
+
+test.o: test.c 
 	$(CC) -c $^ -o $@
-str.o: str.c
+
+main.o: main.c 
 	$(CC) -c $^ -o $@
-clear:
-	rm -f *.o $(TARGET)
+
+str.o: str.c 
+	$(CC) -c $^ -o $@
+
+clean:
+	rm -f *.o $(TARGET) test.exe
