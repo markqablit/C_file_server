@@ -1,10 +1,9 @@
 #include "str.h"
 #include <stdio.h>
-#include <string.h>
 
 int main(){
-
-    printf("%d",str_includ("-p8000","-p"));
+    char* a = "abc", *b = "dfg",*c = str_sum(a,b,100);
+    printf("%s", c);
 
     return 0;
 }

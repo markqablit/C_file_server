@@ -50,3 +50,19 @@ int str_to_ushort(const char* str){
     }
     return (sum <= USHRT_MAX) ? (int)sum : -1;
 }
+
+char* str_sum(const char *str1, const char *str2, const int max_len){
+    if (!str1 || !str2) return NULL;
+    int len1 = str_len(str1), len2 = str_len(str2);
+    if (len1 + len2 >= max_len) return NULL;
+    char* new_str = malloc(len1 + len2 + 1);
+    for (int i = 0; i < len1; ++i){
+        new_str[i] = str1[i];
+    }
+    for (int j = 0; j < len2; ++j){
+        new_str[j + len1] = str2[j];
+    }
+    new_str[len1+len2] = '\0';
+    return new_str;
+
+}
