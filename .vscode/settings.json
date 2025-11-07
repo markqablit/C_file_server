@@ -3,6 +3,7 @@
         "stdio.h": "c",
         "string.h": "c",
         "str.h": "c",
-        "limits.h": "c"
+        "limits.h": "c",
+        "dir.h": "c"
     }
 }

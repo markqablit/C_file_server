@@ -1,24 +1,27 @@
-CC=gcc 
-SOURCES = main.c str.c 
+CC = gcc 
+BUILD_DIR = .\build
+SOURCES_DIR = .\src
+HEADER_DIR = .\include
+SOURCES = main.c str.c dir.c
 TARGET = server.exe
 
-$(TARGET): main.o str.o dir.o
-	$(CC) $^ -o $@
+build\$(TARGET): build\main.o build\str.o build\dir.o 
+	$(CC) $^ -o $@ 
 
-main.o: main.c 
-	$(CC) -c $^ -o $@
+build\main.o: src\main.c 
+	$(CC) -c $^ -o $@ -I$(HEADER_DIR)
 
-str.o: str.c 
-	$(CC) -c $^ -o $@
+build\str.o: src\str.c 
+	$(CC) -c $^ -o $@ -I$(HEADER_DIR)
 
-dir.o: dir.c
-	$(CC) -c $^ -o $@
+build\dir.o: src\dir.c
+	$(CC) -c $^ -o $@ -I$(HEADER_DIR)
 
-test.exe: str.o test.o
-	$(CC) $^ -o $@
+tests\test.exe: build\str.o tests\test.o
+	$(CC) $^ -o $@ 
 
-test.o: test.c 
-	$(CC) -c $^ -o $@
+tests\test.o: tests\test.c 
+	$(CC) -c $^ -o $@ -I$(HEADER_DIR)
 
-clean:
-	rm -f *.o $(TARGET) test.exe
+cleanall:
+	rm -f build\main.o build\str.o build\dir.o test\test.o build\$(TARGET) tests\test.exe
