@@ -1,9 +1,45 @@
-#include "str.h"
 #include <stdio.h>
+#include <winsock2.h>
 
-int main(){
-    char* a = "abc", *b = "dfg",*c = str_sum(a,b,100);
-    printf("%s", c);
+int check_port(int port) {
+    WSADATA wsa;
+    SOCKET sock;
+    struct sockaddr_in addr;
+    
+    if (WSAStartup(MAKEWORD(2,2), &wsa) != 0) {
+        return 0;
+    }
+    
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == INVALID_SOCKET) {
+        WSACleanup();
+        return 0;
+    }
+    
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(port);
+    
+    int result = bind(sock, (struct sockaddr*)&addr, sizeof(addr));
+    
+    closesocket(sock);
+    WSACleanup();
+    
+    return (result == 0);
+}
 
+int main() {
+    int test_ports[] = {80, 443, 8080, 3000, 5000, 0};
+    
+    printf("Проверка портов:\n");
+    for (int i = 0; test_ports[i] != 0; i++) {
+        int port = test_ports[i];
+        if (check_port(port)) {
+            printf("Порт %d: СВОБОДЕН ✓\n", port);
+        } else {
+            printf("Порт %d: ЗАНЯТ ✗\n", port);
+        }
+    }
+    
     return 0;
 }

@@ -64,5 +64,11 @@ char* str_sum(const char *str1, const char *str2, const int max_len){
     }
     new_str[len1+len2] = '\0';
     return new_str;
+}
 
+void str_replace(char* str, char old, char new){
+    for (int i = 0; str[i] != '\0'; ++i){
+        if(str[i] == old) str[i] = new;
+    }
+    return;
 }

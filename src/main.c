@@ -2,9 +2,43 @@
 #include "dir.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
-int port_is_free(unsigned short port){
-    return 1;
+int check_port(int port) {
+    WSADATA wsa;
+    SOCKET sock;
+    struct sockaddr_in addr;
+    int result;
+    
+
+    if (WSAStartup(MAKEWORD(2,2), &wsa) != 0) {
+        return 0;
+    }
+
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    if (sock == INVALID_SOCKET) {
+        WSACleanup();
+        return 0;
+    }
+
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons((u_short)port);
+
+    result = bind(sock, (struct sockaddr*)&addr, sizeof(addr));
+    
+    closesocket(sock);
+    WSACleanup();
+    
+    if (result == SOCKET_ERROR) {
+        int error = WSAGetLastError();
+        // WSAEADDRINUSE = 10048 (порт занят)
+        // WSAEACCES = 10013 (нет прав на порт)
+        return 0;
+    }
+    
+    return 1; 
 }
 
 int main(int argc, char *argv[]) {
@@ -31,7 +65,7 @@ int main(int argc, char *argv[]) {
             }
             port = str_to_ushort(argv[++i]);
             port_flag = 0;
-            if (!port_is_free(port)){
+            if (!check_port(port)){
                 printf("error: incorect port: port is busy");
                 return -1;
             }
@@ -47,6 +81,10 @@ int main(int argc, char *argv[]) {
             }
             port = str_to_ushort(new_port);
             port_flag = 0;
+            if (!check_port(port)){
+                printf("error: incorect port: port is busy");
+                return -1;
+            }
             free(new_port);
         } 
         else if ((str_cmp(argv[i], "-d") || str_cmp(argv[i], "--dir") || str_cmp(argv[i], "/d") || str_cmp(argv[i], "/dir")) && dir_flag) {
@@ -97,7 +135,11 @@ int main(int argc, char *argv[]) {
             return -1;
         }
     }
-    
+#ifdef _WIN32
+    str_replace(work_dir, '/', '\\');
+#else
+    str_replace(work_dir, '\\', '/');
+#endif
     printf("Server start on port %hu and with directory %s", port, work_dir);
     return 0;
 }

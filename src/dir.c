@@ -1,4 +1,5 @@
 #include "dir.h"
+#include "str.h"
 
 #ifdef _WIN32
     #include <windows.h>
@@ -24,3 +25,12 @@ int is_dir_exists(const char* path) {
 
 #endif
 }
+
+
+
+
+
+
+
+
+
