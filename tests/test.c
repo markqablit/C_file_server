@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <winsock2.h>
+#include <ws2tcpip.h>
 
 int check_port(int port) {
     WSADATA wsa;
@@ -31,13 +32,13 @@ int check_port(int port) {
 int main() {
     int test_ports[] = {80, 443, 8080, 3000, 5000, 0};
     
-    printf("Проверка портов:\n");
-    for (int i = 0; test_ports[i] != 0; i++) {
-        int port = test_ports[i];
+    printf("Port chaeck:\n");
+    for (int i = 0; i < 64000; i++) {
+        int port = i;
         if (check_port(port)) {
-            printf("Порт %d: СВОБОДЕН ✓\n", port);
+            //printf("Порт %d: СВОБОДЕН ✓\n", port);
         } else {
-            printf("Порт %d: ЗАНЯТ ✗\n", port);
+            printf("Port %d: doesnt free ✗\n", port);
         }
     }
     

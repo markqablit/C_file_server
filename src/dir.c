@@ -17,6 +17,14 @@ void get_current_dir(char *buffer, unsigned int size) {
 
 }
 
+void normalize_dir(char* dir){
+#ifdef _WIN32
+    str_replace(dir, '/', '\\');
+#else
+    str_replace(dir, '\\', '/');
+#endif
+}
+
 int is_dir_exists(const char* path) {
 #ifdef _WIN32
     unsigned int attrib = GetFileAttributes(path);

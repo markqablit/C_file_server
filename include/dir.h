@@ -2,6 +2,7 @@
 #define DIR_H
 
 void get_current_dir(char *buffer, unsigned int size);
+void normalize_dir(char* dir);
 int  is_dir_exists(const char* path);
 
 #endif

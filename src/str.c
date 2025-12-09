@@ -1,4 +1,6 @@
 #include "str.h"
+#include <limits.h>
+#include <stdlib.h>
 
 int str_len(const char* str) {
     if (!str) return 0;
