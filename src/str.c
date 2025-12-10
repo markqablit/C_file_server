@@ -45,7 +45,7 @@ int str_to_ushort(const char* str){
     unsigned int sum = 0;
     int tmp = 0;
     for(int i = 0; str[i] != '\0'; ++i){
-        tmp = str[i] - '0';
+        tmp = (str[i] - (int)'0');
         if(tmp > 9 || tmp < 0) return -1;
         if (sum > (USHRT_MAX - tmp) / 10)  return -1;
         sum = sum * 10 + tmp;

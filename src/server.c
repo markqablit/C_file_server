@@ -4,7 +4,7 @@
 #include <ws2tcpip.h>
 
 
-int check_port(int port) {
+int check_port(unsigned short port) {
     WSADATA wsa;
     SOCKET sock;
     struct sockaddr_in addr;
