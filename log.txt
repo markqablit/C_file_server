@@ -1,0 +1,6 @@
+[DBG] | [src/main.c:main:9] PROGRAM START
+[DBG] | [src/arg_parser.c:create_def_config:8] create_def_config in
+[DBG] | [src/arg_parser.c:create_def_config:34] create_def_config out
+[DBG] | [src/arg_parser.c:parse_arguments:39] parse_arguments in
+[DBG] | [src/arg_parser.c:parse_arguments:195] parse_arguments out
+[DBG] | [src/main.c:main:46] PROGRAM END

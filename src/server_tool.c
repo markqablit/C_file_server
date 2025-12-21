@@ -1,15 +1,19 @@
-#include "server.h"
+#include "server_tool.h"
+#include "str.h"
+#include "dir.h"
+#include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
 
 int check_port(unsigned short port) {
+    if(port == 0) return 0;
     WSADATA wsa;
     SOCKET sock;
     struct sockaddr_in addr;
     int result;
-    
 
     if (WSAStartup(MAKEWORD(2,2), &wsa) != 0) {
         return 0;
@@ -31,9 +35,70 @@ int check_port(unsigned short port) {
     WSACleanup();
     
     if (result == SOCKET_ERROR) {
-        int error = WSAGetLastError();// WSAEADDRINUSE = 10048 (порт занят) WSAEACCES = 10013 (нет прав на порт)
+        int error = WSAGetLastError();
         return 0;
     }
     
     return 1; 
 }
+
+int start_server(Server_config* conf){
+    LDBG("start_server in");
+
+    LDBG("start_server out");
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

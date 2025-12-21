@@ -3,18 +3,21 @@ LIBS = -lws2_32
 BUILD_DIR = build
 SOURCES_DIR = src
 HEADER_DIR = include
-SOURCES = $(SOURCES_DIR)/main.c $(SOURCES_DIR)/str.c $(SOURCES_DIR)/dir.c $(SOURCES_DIR)/server.c $(SOURCES_DIR)/arg_parser.c 
+SOURCES = $(SOURCES_DIR)/main.c $(SOURCES_DIR)/str.c $(SOURCES_DIR)/dir.c $(SOURCES_DIR)/arg_parser.c $(SOURCES_DIR)/server_tool.c
 OBJECTS = $(SOURCES:$(SOURCES_DIR)/%.c=$(BUILD_DIR)/%.o)
 TARGET = $(BUILD_DIR)/server.exe
 
 $(TARGET): $(OBJECTS)
 	$(CC) $^ -o $@ $(LIBS)
 
-%(BUILD_DIR)/server.o: $(SOURCES_DIR)/server.c
+%(BUILD_DIR)/server_tool.o: $(SOURCES_DIR)/server_tool.c
 	$(CC) -c $^ -o $@ -I$(HEADER_DIR) $(LIBS)
 
 $(BUILD_DIR)/%.o: $(SOURCES_DIR)/%.c
-	$(CC) -c $^ -o $@ -I$(HEADER_DIR)	
+	$(CC) -c $^ -o $@ -I$(HEADER_DIR) -DLOGLVL=3
+
+debug: $(OBJECTS)
+	$(CC) $^ -o $(TARGET) $(LIBS) -DLOGLVL=3
 
 tests\test.exe: tests\test.o
 	$(CC) $^ -o $@ $(LIBS) 
@@ -24,4 +27,5 @@ tests\test.o: tests\test.c
 
 clean:
 	rm -f $(OBJECTS) test/test.o $(TARGET) tests/test.exe
-.PHONY: clean
+	
+.PHONY: clean debug

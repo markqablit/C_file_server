@@ -3,31 +3,47 @@
 #include <stdlib.h>
 
 int str_len(const char* str) {
-    if (!str) return 0;
+    LDBG("str_len in");
+    if (!str){
+        LDBG("str_len out");
+        return 0;
+    } 
     int len = 0;
     while (str[len] != '\0') {
         len++;
     }
     return len;
+    LDBG("str_len out");
 }
 
 int str_includ(const char *containing_str, const char *sub_str){
-    if (!containing_str || !sub_str || str_len(sub_str) > str_len(containing_str)) return 0;
-    for(int i = 0; i < str_len(sub_str); ++i){
-        if (sub_str[i] != containing_str[i]) return 0;
+    LDBG("str_include in");
+    if (!containing_str || !sub_str || str_len(sub_str) > str_len(containing_str)){
+        LDBG("str_include  out");
+        return 0;
     }
+    for(int i = 0; i < str_len(sub_str); ++i){
+        if (sub_str[i] != containing_str[i]){
+            LDBG("str_include out");
+            return 0;
+        }
+    }
+    LDBG("str_include out");
     return 1;
 }
 
 int str_cmp(const char *str1, const char *str2){
+    LDBG("str_cmp in");
     if ( !str1 || !str2 || (str_len(str1) != str_len(str2))) return 0;
     for(int i = 0; str1[i] != '\0'; ++i){
         if (str1[i] != str2[i]) return 0;
     }
+    LDBG("str_cmp out");
     return 1;
 }
 
 char* str_cut(const char* source_str, const int start_index){
+    LDBG("str_cut in");
     if (!source_str) return NULL;
     int source_len = str_len(source_str);
     if (source_len <= start_index) return NULL;
