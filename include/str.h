@@ -15,6 +15,6 @@ char* str_search_right_chr(const char* str, int chr);
 char* str_search_chr(const char* str, int chr);
 char* str_search_str(const char* soutce, const char* find);
 char* str_parse(char* str, const char* parser);
-
+int str_cmpi(const char* s1, const char* s2);
 
 #endif
