@@ -58,10 +58,10 @@ int parse_arguments(int argc, char* argv[], Server_config* config) {
             port_flag = 0;
             ++i;
         }
-        else if ((str_includ(argv[i], "-p") || str_includ(argv[i], "--port") || str_includ(argv[i], "/p") || str_includ(argv[i], "/port")) && port_flag) {
+        else if ((str_include(argv[i], "-p") || str_include(argv[i], "--port") || str_include(argv[i], "/p") || str_include(argv[i], "/port")) && port_flag) {
             int flag_len = 2;
-            if (str_includ(argv[i], "--port")) flag_len = 6;
-            else if (str_includ(argv[i], "/port")) flag_len = 5;
+            if (str_include(argv[i], "--port")) flag_len = 6;
+            else if (str_include(argv[i], "/port")) flag_len = 5;
             char* port_str = str_cut(argv[i], flag_len);
             if (!port_str) {
                 puts("error: incorrect port format");
@@ -120,10 +120,10 @@ int parse_arguments(int argc, char* argv[], Server_config* config) {
             }
             dir_flag = 0;
         }
-        else if ((str_includ(argv[i], "-d") || str_includ(argv[i], "--dir") || str_includ(argv[i], "/d") || str_includ(argv[i], "/dir")) && dir_flag) {
+        else if ((str_include(argv[i], "-d") || str_include(argv[i], "--dir") || str_include(argv[i], "/d") || str_include(argv[i], "/dir")) && dir_flag) {
             int flag_len = 2;
-            if (str_includ(argv[i], "--dir")) flag_len = 5;
-            else if (str_includ(argv[i], "/dir")) flag_len = 4;
+            if (str_include(argv[i], "--dir")) flag_len = 5;
+            else if (str_include(argv[i], "/dir")) flag_len = 4;
             
             char* dir_path = str_cut(argv[i], flag_len);
             if (!dir_path) {

@@ -6,6 +6,7 @@
         "limits.h": "c",
         "dir.h": "c",
         "unistd.h": "c",
-        "winsock2.h": "c"
+        "winsock2.h": "c",
+        "signal.h": "c"
     }
 }

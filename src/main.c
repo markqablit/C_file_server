@@ -13,32 +13,31 @@ int main(int argc, char *argv[]) {
     if(config == NULL){
         puts("argument create error");
         LERR("server config error");
-        LDBG("main out");
+        LDBG("PROGRAM END\n");
         return 1;
     }
     
     if (parse_arguments(argc, argv, config) != 0) {
         puts("argument parsing error");
         LERR("server config error");
-        LDBG("main out");
+        LDBG("PROGRAM END\n");
         return 1;
     }
     
     if (config->show_help) {
         print_help(argv[0]);
         free_config(config);
-        LDBG("main out");
+        LDBG("PROGRAM END\n");
         return 0;
     }
     
     if (!check_port(config->port)) {
         printf("error: port %hu is busy or inaccessible\n", config->port);
         free_config(config);
-        LDBG("main out");
+        LERR("error: port is busy");
+        LDBG("PROGRAM END\n");
         return 1;
     }
-    
-    printf("Server start on port %hu, with directory %s and timeout %hu second\n", config->port, config->work_dir, config->timeout);
 
     result = start_server(config);
     

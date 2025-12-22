@@ -14,7 +14,7 @@
             lvl, __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__); \
         fclose(log_file); \
     } \
-} while(0)
+} while(0);
 #define _LOG(lvl, x) _LOGF(lvl, "%s", x)
 
 #if LOGLVL >= 1
